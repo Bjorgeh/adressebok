@@ -164,6 +164,7 @@ void MainWindow::setupToolBar()
         addToolBar(Qt::ToolBarArea::LeftToolBarArea,toolbar);
     }
 
+    //sletter toolbar
     else{delete toolbar;};
 }
 
