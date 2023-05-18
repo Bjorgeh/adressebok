@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/icons/functionImages">
+        <file>icons/add.png</file>
+        <file>icons/delete.png</file>
+        <file>icons/help.png</file>
+        <file>icons/list.png</file>
+        <file>icons/update.png</file>
+    </qresource>
+</RCC>
