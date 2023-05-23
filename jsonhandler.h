@@ -4,24 +4,17 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
-
+#include <QFile>
 #include "adress.h"
-
+#include <QCoreApplication>
 
 class jsonHandler
 {
 public:
     jsonHandler();
     ~jsonHandler();
-
-private:
-    void saveToJson(QVector<adresses> dataBaseVector);
-    void deleteFromJsonFile(int vectorPos);
-
-signals:
-    void fileCreated(QString fileName);
-    void savedToFile(QString contactName);
-    void deletedFromFile(QString contactName);
+    void saveToJson(QVector<adresses*> dataBaseVector);
+    QVector<adresses*> loadFromJson(QString fileName);
 };
 
 #endif // JSONHANDLER_H

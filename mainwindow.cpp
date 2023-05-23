@@ -22,6 +22,11 @@ MainWindow::MainWindow(QWidget *parent)
     setupTable();
     //setupToolBar(true);
     //updateStatusBar("test");
+
+    //Returnerer array med kontakter fra json fil
+    //jsonDB->loadFromJson("dataBase.json");
+
+    qInfo () << jsonDB->loadFromJson("dataBase.json");
 }
 
 //Lagrer kontakter og sletter ui obj
@@ -171,8 +176,12 @@ void MainWindow::setupToolBar()
 //Lagrer kontakter
 void MainWindow::saveSettings()
 {
+
     //Fjerner først gammel info
     settings->clear();
+
+    //Sender adressbok vektoren til jsonhandler
+    jsonDB->saveToJson(adressebok_new);
 
     //Henter objektene i database-vektoren
     for(int i{}; i < adressebok_new.size();i++)
@@ -227,6 +236,7 @@ void MainWindow::loadSettings()
             adressebok_new.append(adressebok);
         }
     }
+
 }
 
     //Åpner vindu for å legge til kontakter

@@ -13,6 +13,8 @@
 #include "update_contact_dialog.h"
 #include "help_dialog.h"
 #include "list_items_dialog.h"
+#include "jsonhandler.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -80,6 +82,9 @@ private:
     QSettings *settings;
     void saveSettings();
     void loadSettings();
+
+    //objekt for handling av json data
+    jsonHandler *jsonDB = new jsonHandler;
 
     //test
     QString testText{};

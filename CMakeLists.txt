@@ -35,6 +35,8 @@ set(PROJECT_SOURCES
         help_dialog.cpp
         help_dialog.ui
         icons_adressebok.qrc
+        jsonhandler.h
+        jsonhandler.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
