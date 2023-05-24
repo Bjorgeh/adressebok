@@ -14,7 +14,7 @@ public:
     jsonHandler();
     ~jsonHandler();
     void saveToJson(QVector<adresses*> dataBaseVector);
-    QVector<adresses*> loadFromJson(QString fileName);
+    QVector<adresses*> loadFromJson(QString filePath);
 };
 
 #endif // JSONHANDLER_H

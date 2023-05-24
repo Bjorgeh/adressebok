@@ -69,13 +69,13 @@ void jsonHandler::saveToJson(QVector<adresses*> dataBaseVector)
 }
 
 //Tar mot string av filnavn og går gjennom json objekter, returnerer vektor med objektene
-QVector<adresses*> jsonHandler::loadFromJson(QString fileName)
+QVector<adresses*> jsonHandler::loadFromJson(QString filePath)
 {
     //Lager ny vektor
     QVector<adresses*> arrayFromJson;
 
     //Lager fil objekt
-    QFile file(fileName);
+    QFile file(filePath);
 
     //Hvis filen finnes
     if (file.exists()) {
@@ -88,12 +88,12 @@ QVector<adresses*> jsonHandler::loadFromJson(QString fileName)
             //Går gjennom alle objekter i array og legger til i vektor som nye objekter
             for(int i{0}; i < jsonArray.size(); i++)
             {
-                adresses *tempContact = new adresses("","","","","");
-                tempContact->setName(jsonArray.at(i)["name"].toString());
-                tempContact->setAdress(jsonArray.at(i)["address"].toString());
-                tempContact->setPostnr(jsonArray.at(i)["postal"].toString());
-                tempContact->setEmail(jsonArray.at(i)["email"].toString());
-                tempContact->setNumber(jsonArray.at(i)["number"].toString());
+                adresses *tempContact = new adresses(
+                            jsonArray.at(i)["name"].toString(),
+                            jsonArray.at(i)["address"].toString(),
+                            jsonArray.at(i)["postal"].toString(),
+                            jsonArray.at(i)["email"].toString(),
+                            jsonArray.at(i)["number"].toString());
 
                 arrayFromJson.push_back(tempContact);
             }

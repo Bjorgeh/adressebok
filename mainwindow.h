@@ -14,7 +14,7 @@
 #include "help_dialog.h"
 #include "list_items_dialog.h"
 #include "jsonhandler.h"
-
+#include "load_from_file_dialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -37,6 +37,7 @@ private slots:
     void update_popup();
     void list_popup();
     void help_popup();
+    void load_popup();
 
     //deklarerer funksjoner som tar mot info uten fra klassen
     void addContact(adresses* contact);
@@ -45,6 +46,9 @@ private slots:
 
     //deklarerer funksjon for oppdatering av statusbar
     void updateStatusBar(QString message);
+
+    //deklarerer funksjon for file loading
+    QString loadFromFile(QString path);
 
 private:
     //ui obj
@@ -63,6 +67,7 @@ private:
     QAction* listAct;
     QAction* helpAct;
     QAction* showToolBar;
+    QAction* loadAct;
 
     //Deklarerer variabel for nåværende markerte kontakt
     int currentMarked{};
@@ -85,6 +90,7 @@ private:
 
     //objekt for handling av json data
     jsonHandler *jsonDB = new jsonHandler;
+
 
     //test
     QString testText{};

@@ -44,6 +44,9 @@ void MainWindow::setupActions()
     newAct = new QAction(tr("New"),this);
     newAct->setShortcut(QKeySequence::New);
 
+    loadAct = new QAction(tr("Load"),this);
+    loadAct->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_S));
+
     deleteAct = new QAction(tr("Delete"),this);
     deleteAct->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_D));
 
@@ -72,6 +75,8 @@ void MainWindow::setupActions()
     connect(helpAct,&QAction::triggered,this,&MainWindow::help_popup);
     //"Show toolbar" starter funksjonen setuptoolbar
     connect(showToolBar,&QAction::triggered,this,&MainWindow::setupToolBar);
+    //"Load" starter funksjonen load_popup
+    connect(loadAct,&QAction::triggered,this,&MainWindow::load_popup);
 }
 
 //setter opp selve menybaren og kobler til actions
@@ -86,6 +91,7 @@ void MainWindow::setupMenu()
 
     //Legger til actions fra mainwindow klassens private
     menuFile->addAction(newAct);
+    menuFile->addAction(loadAct);
     menuEdit->addAction(deleteAct);
     menuEdit->addAction(updateAct);
     menuView->addAction(listAct);
@@ -208,7 +214,7 @@ void MainWindow::saveSettings()
 //Laster inn kontakter
 void MainWindow::loadSettings()
 {
-    settings = new QSettings("Asgeir", "Adressebok");
+    settings = new QSettings("Bjorgeh", "Adressebok");
     int numberOfKeys = settings->allKeys().size();
     //qInfo() << numberOfKeys;
     //qInfo() << settings->allKeys();
@@ -349,6 +355,25 @@ void MainWindow::help_popup()
     delete popup;
 }
 
+void MainWindow::load_popup()
+{
+    updateStatusBar(tr("adding from file..."));
+
+    // Opprett et nytt dialogvindu for lasting fra fil
+    load_from_file_Dialog *loadFile = new load_from_file_Dialog;
+
+    // Koble signalet filePathSignal fra dialogvinduet til sporet loadFromFile i MainWindow
+    connect(loadFile, &load_from_file_Dialog::filePathSignal, this, &MainWindow::loadFromFile);
+
+    // Åpne dialogvinduet
+    loadFile->exec();
+
+    // Når dialogvinduet er lukket, kan du slette det
+
+    //delete loadFile;
+    setupTable();
+}
+
 //Slette valgde kontakter
 void MainWindow::deleteContact(int pos)
 {
@@ -382,6 +407,16 @@ void MainWindow::updateStatusBar(QString message)
 {
     ui->statusbar->showMessage(message,0);
     ui->statusbar->show();
+}
+
+QString MainWindow::loadFromFile(QString path)
+{
+    QVector<adresses*> temp = jsonDB->loadFromJson(path);
+    for(int i{};i < temp.size();i++)
+    {
+        adressebok_new.push_back(temp.at(i));
+    }
+    return "";
 }
 
 //Tar mot og legger til kontakt
