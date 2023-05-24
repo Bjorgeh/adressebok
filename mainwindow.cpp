@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle(tr("Address book"));
 
     //Kjører funksjoner for oppstart av programmet.
     setupActions();

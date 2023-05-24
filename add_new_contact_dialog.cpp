@@ -9,6 +9,7 @@ add_new_contact_dialog::add_new_contact_dialog(QWidget *parent) :
 {
     //Starter ui
     ui->setupUi(this);
+    this->setWindowTitle(tr("Add contact"));
 }
 
 //Dekonstruktør

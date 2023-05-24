@@ -10,7 +10,7 @@ list_items_Dialog::list_items_Dialog(QVector<adresses*>contactList,QWidget *pare
 {
     ui->setupUi(this);
     //Endrer tittel på vindu
-    this->setWindowTitle("Contact List");
+    this->setWindowTitle(tr("Contact List"));
 
     //Mellomlagrer mottatt vektor for ordens skyld
     adressebok_new_copy = contactList;

@@ -1,16 +1,15 @@
 #include "jsonhandler.h"
 
+//Konstruktør sjekker om jsonfil finnes, hvis ikke lages den. og signal emit fileExists(true) sendes.
 jsonHandler::jsonHandler()
 {
-    //sjekker om jsonfil finnes, hvis ikke lages den. og signal emit fileExists(true) sendes.
-
     QFile file("dataBase.json");
     bool Exists = file.exists();
     if (!Exists) {
         //lager json objekt
         QJsonObject jsonObject;
 
-        //lager json fil fra objektet
+        //lager jsondoc objekt fra jsonobjektet
         QJsonDocument jsonDoc(jsonObject);
 
         //lager JSON-dokumentet til JSON-streng
@@ -20,12 +19,14 @@ jsonHandler::jsonHandler()
         QString filename = "dataBase.json";
         QFile file(filename);
 
+        //Kjører filen med write only og skriver string til filen
         if (file.open(QIODevice::WriteOnly))
         {
             // Skriver json string til filen
             file.write(jsonData);
             file.close();
 
+            //Henter directory til hvor filen blir lagret
             QString currentPath = QCoreApplication::applicationDirPath();
             qInfo() << "Current working directory: " << currentPath;
             qInfo() << "json fil created: " << filename;
@@ -38,16 +39,16 @@ jsonHandler::jsonHandler()
     }
 }
 
+//tar info fra databasevektor og skriver det inn i jsonfilen
 void jsonHandler::saveToJson(QVector<adresses*> dataBaseVector)
 {
-    //tar info fra vektor og skriver det inn i jsonfilen
-
+    //Lager array json objekt
     QJsonArray jsonArray;
+    //Går gjennom objekter i databasevektor og lagrer i jsonarray
     for (int i{0};i<dataBaseVector.size();i++) {
 
         //Lager json objekt
         QJsonObject jsonObject;
-
         jsonObject["name"] = dataBaseVector.at(i)->getName();
         jsonObject["address"] = dataBaseVector.at(i)->getAdress();
         jsonObject["postal"] = dataBaseVector.at(i)->getPostNr();
@@ -67,17 +68,24 @@ void jsonHandler::saveToJson(QVector<adresses*> dataBaseVector)
     }
 }
 
+//Tar mot string av filnavn og går gjennom json objekter, returnerer vektor med objektene
 QVector<adresses*> jsonHandler::loadFromJson(QString fileName)
 {
+    //Lager ny vektor
     QVector<adresses*> arrayFromJson;
-    //sletter objekt fra jsonfil ved hjelp av elements posisjon i vektor
 
+    //Lager fil objekt
     QFile file(fileName);
+
+    //Hvis filen finnes
     if (file.exists()) {
+        //Åpner filen med write only og lagrer objekter i array
         if (file.open(QIODevice::ReadWrite)) {
             QByteArray jsonData = file.readAll();
             QJsonDocument jsonDoc(QJsonDocument::fromJson(jsonData));
             QJsonArray jsonArray = jsonDoc.array();
+
+            //Går gjennom alle objekter i array og legger til i vektor som nye objekter
             for(int i{0}; i < jsonArray.size(); i++)
             {
                 adresses *tempContact = new adresses("","","","","");

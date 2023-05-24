@@ -14,6 +14,7 @@ update_contact_dialog::update_contact_dialog(QVector<QString> contact,QWidget *p
     QString number = contact.at(4);
 
     ui->setupUi(this);
+    this->setWindowTitle(tr("Update contact"));
     //Setter placeholder text til nåværende info
     ui->update_name->setPlaceholderText(name);
     ui->update_address->setPlaceholderText(adr);

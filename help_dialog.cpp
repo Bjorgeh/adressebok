@@ -7,7 +7,9 @@ help_Dialog::help_Dialog(QWidget *parent) :
     ui(new Ui::help_Dialog)
 {
     ui->setupUi(this);
+    this->setWindowTitle(tr("Help"));
 }
+
 //Dekonstruktør
 help_Dialog::~help_Dialog()
 {

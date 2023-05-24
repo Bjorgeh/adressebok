@@ -8,6 +8,7 @@ delete_contact_dialog::delete_contact_dialog(QWidget *parent) :
     ui(new Ui::delete_contact_dialog)
 {
     ui->setupUi(this);
+    this->setWindowTitle(tr("Delete contact"));
 }
 //dekonstruktør
 delete_contact_dialog::~delete_contact_dialog()
